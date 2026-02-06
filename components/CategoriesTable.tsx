@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { useState } from "react"
 import { DeleteCategory } from "@/actions/CategoriesActions"
-import { Category as PrismaCategory } from "@/app/generated/prisma/browser"
+import type { Category as PrismaCategory } from "@prisma/client";
+
 
 type Category = PrismaCategory & {
   _count?: { posts: number }
