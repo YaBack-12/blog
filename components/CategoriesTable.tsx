@@ -3,8 +3,7 @@
 import Link from "next/link"
 import { useState } from "react"
 import { DeleteCategory } from "@/actions/CategoriesActions"
-import type { Category } from "@prisma/client";
-
+// import { Category } from "@/app/generated/prisma/browser"
 
 // type Category = {
 //   id: string
@@ -12,7 +11,7 @@ import type { Category } from "@prisma/client";
 //   _count: { posts: number }
 // }
 
-export default function CategoriesTable({ categories }: { categories: Category[] } ) {
+export default function CategoriesTable({ categories }: { categories: any[] } ) {
   const [open, setOpen] = useState(false)
   const [categoryId, setCategoryId] = useState<string | null>(null)
   const [categoryTitle, setCategoryTitle] = useState<string>("")
