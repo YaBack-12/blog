@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  user
+  admin
+  editor
+}
+
+
+model User {
+  id        Int         @id @default(autoincrement())
+  name      String
+  email     String      @unique
+  password  String
+  role      Role        @default(user)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  deletedAt DateTime?
+  
+  posts     Post[]    // optional relation: a user can have many posts
+  commant   Comment[]    // one category can have many posts
+
+}
+
+model Category {
+  id        Int         @id @default(autoincrement())
+  title     String      @unique
+  slug      String      @unique
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  deletedAt DateTime?
+
+  posts     Post[]    // one category can have many posts  
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  title       String
+  slug        String    @unique
+  description String
+  image       String? 
+  views       Int       @default(0)
+  status      Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+
+  categoryId  Int
+  category    Category  @relation(fields: [categoryId], references: [id])
+
+  authorId    Int
+  author      User      @relation(fields: [authorId], references: [id])
+
+  comment     Comment[]   
+}
+
+model Comment {
+  id          Int       @id @default(autoincrement())
+
+  
+  Comment     String
+  createdAt   DateTime  @default(now())
+  deletedAt   DateTime?
+
+  authorId    Int
+  author      User      @relation(fields: [authorId], references: [id])
+  
+  postId      Int
+  post        Post  @relation(fields: [postId], references: [id])
+
+}
+
+model Contact {
+  
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String
+  message     String
+  createdAt   DateTime  @default(now())
+  deletedAt   DateTime?
+
+}
