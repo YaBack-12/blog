@@ -2,9 +2,24 @@ import { prisma } from "@/lib/db";
 import Link from "next/link";
 
 
+type Post = {
+  id: number;
+  title: string;
+  slug: string;
+  image: string;
+  description?: string;
+  category?: {
+    title: string;
+  };
+  author?: {
+    name: string;
+  };
+  // Add other fields as needed
+};
+
 export default async function Home() {
-    const posts = await prisma.post.findMany({ where: { status: 1 }, include: { category: true , author: true} }); 
-    const post = await prisma.post.findMany({ 
+    const posts: Post[] = await prisma.post.findMany({ where: { status: 1 }, include: { category: true , author: true} }); 
+    const post: Post[] = await prisma.post.findMany({ 
       where: { status: 1 },
       include: { category: true , author: true},
       orderBy: { createdAt: 'desc' },
@@ -59,7 +74,7 @@ export default async function Home() {
         <h3 className="text-3xl font-bold mb-10">Latest Articles</h3>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
+          {posts.map((post: Post) => (
             <Link
               key={post.id}
               href={`/posts/${post.slug}`}
