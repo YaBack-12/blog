@@ -1,10 +1,10 @@
 'use client'
 
 import { CreatePosts } from '@/actions/PostsActions'
-import { Category } from '@/app/generated/prisma/browser'
+// import { Category } from '@/app/generated/prisma/browser'
 import  { useState } from 'react'
 
-const CreateForm = ( { categories } : { categories: Category[] }) => {
+const CreateForm = ( { categories } : { categories: any[] }) => {
     const [imagePreview, setImagePreview] = useState<string | null>(null)
     return (
         <form action={CreatePosts} className="w-full bg-white border border-muted rounded-2xl p-8 max-w-3xl space-y-6">

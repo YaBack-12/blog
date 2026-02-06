@@ -1,10 +1,10 @@
 'use client'
 
 import { EditPost } from '@/actions/PostsActions'
-import { Category } from '@/app/generated/prisma/browser'
+// import { Category } from '@/app/generated/prisma/browser'
 import  { useState } from 'react'
 
-const EditForm = ( { posts , categories } : { posts : any , categories: Category[] }) => {
+const EditForm = ( { posts , categories } : { posts : any , categories: any[] }) => {
     const [imagePreview, setImagePreview] = useState<string | null>(posts?.image ?? null)
     return (
         <form action={EditPost.bind(null, posts.id)}  className="w-full bg-white border border-muted rounded-2xl p-8 max-w-3xl space-y-6">
