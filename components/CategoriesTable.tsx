@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { useState } from "react"
 import { DeleteCategory } from "@/actions/CategoriesActions"
-import { Category } from "@/app/generated/prisma/browser"
+import type { Category } from "@prisma/client";
+
 
 // type Category = {
 //   id: string
