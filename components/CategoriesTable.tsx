@@ -38,7 +38,7 @@ export default function CategoriesTable({ categories }: { categories: any[] } ) 
           <thead className="bg-muted/40 text-primary/70">
             <tr>
               <th className="text-left px-6 py-4">Name</th>
-              {/* <th className="text-left px-6 py-4">Articles</th> */}
+              <th className="text-left px-6 py-4">Articles</th>
               <th className="text-left px-6 py-4">Created At</th>
               <th className="text-left px-6 py-4">Updated At</th>
               <th className="text-right px-6 py-4">Actions</th>
@@ -52,7 +52,7 @@ export default function CategoriesTable({ categories }: { categories: any[] } ) 
                 className="border-t border-muted hover:bg-muted/30 transition"
               >
                 <td className="px-6 py-4 font-medium">{cat.title}</td>
-                {/* <td className="px-6 py-4 text-primary/70"> {cat._count.posts} </td> */}
+                <td className="px-6 py-4 text-primary/70"> {cat._count.posts} </td>
                 <td className="px-6 py-4 text-primary/70"> {cat.createdAt.toLocaleDateString()} </td>
                 <td className="px-6 py-4 text-primary/70"> {cat.updatedAt.toLocaleDateString()} </td>
                 <td className="px-6 py-4">
