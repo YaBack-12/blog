@@ -3,7 +3,11 @@
 import Link from "next/link"
 import { useState } from "react"
 import { DeleteCategory } from "@/actions/CategoriesActions"
-import { Category } from "@/app/generated/prisma/browser"
+import { Category as PrismaCategory } from "@/app/generated/prisma/browser"
+
+type Category = PrismaCategory & {
+  _count?: { posts: number }
+}
 
 // type Category = {
 //   id: string
@@ -26,7 +30,7 @@ export default function CategoriesTable({ categories }: { categories: Category[]
   const handleDelete = async () => {
     if (!categoryId) return
     setLoading(true)
-    await DeleteCategory(categoryId)
+    await DeleteCategory(Number(categoryId))
     setLoading(false)
     setOpen(false)
   }
@@ -52,7 +56,7 @@ export default function CategoriesTable({ categories }: { categories: Category[]
                 className="border-t border-muted hover:bg-muted/30 transition"
               >
                 <td className="px-6 py-4 font-medium">{cat.title}</td>
-                <td className="px-6 py-4 text-primary/70"> {cat._count.posts} </td>
+                <td className="px-6 py-4 text-primary/70"> {cat._count?.posts ?? 0} </td>
                 <td className="px-6 py-4 text-primary/70"> {cat.createdAt.toLocaleDateString()} </td>
                 <td className="px-6 py-4 text-primary/70"> {cat.updatedAt.toLocaleDateString()} </td>
                 <td className="px-6 py-4">
@@ -65,7 +69,7 @@ export default function CategoriesTable({ categories }: { categories: Category[]
                     </Link>
 
                     <button
-                      onClick={() => openModal(cat.id, cat.title)}
+                      onClick={() => openModal(String(cat.id), cat.title)}
                       className="text-sm font-semibold text-red-500 hover:underline"
                     >
                       Delete

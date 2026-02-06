@@ -19,7 +19,7 @@ export default function EditTable({ posts }: { posts: any[] } ) {
   const handleDelete = async () => {
     if (!postId) return
     setLoading(true)
-    await DeletePost(postId)
+    await DeletePost(Number(postId))
     setLoading(false)
     setOpen(false)
   }

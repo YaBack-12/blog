@@ -132,9 +132,14 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
 
             {/* All Comments */}
             <div className="space-y-6">
-              {comments.map((comment, index) => (
+              {comments.map((comment: {
+                id: string;
+                Comment: string;
+                createdAt: Date;
+                author?: { name?: string | null } | null;
+              }) => (
                 <div
-                  key={index}
+                  key={comment.id}
                   className="bg-muted/20 border border-muted rounded-2xl p-4"
                 >
                   <div className="flex items-center justify-between mb-2">

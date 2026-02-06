@@ -3,11 +3,30 @@ import Image from 'next/image';
 import React from 'react';
 import { prisma } from '@/lib/db';
 
+type Post = {
+  id: number;
+  title: string;
+  slug: string;
+  image: string;
+  createdAt: Date;
+  category?: {
+    title: string;
+  };
+  author?: any; // Replace 'any' with the actual author type if available
+  // Add other fields as needed
+};
+
+type Category = {
+  id: number;
+  title: string;
+  // Add other fields as needed
+};
+
 export default async function Posts () {
   
 
-  const posts = await prisma.post.findMany({ where: { status: 1 }, include: { category: true , author: true} }); 
-  const categories = await prisma.category.findMany(); 
+  const posts: Post[] = await prisma.post.findMany({ where: { status: 1 }, include: { category: true , author: true} }); 
+  const categories: Category[] = await prisma.category.findMany(); 
   return (
     <main className="bg-gradient-to-br from-bg via-white/60 to-accent/10 text-primary min-h-screen">
       <div className="mx-auto max-w-7xl px-6 py-12 grid lg:grid-cols-[260px_1fr] gap-12">
@@ -34,7 +53,7 @@ export default async function Posts () {
           <h1 className="text-4xl font-extrabold mb-10">Articles</h1>
 
           <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
-            {posts.map((post) => (
+            {posts.map((post: Post) => (
               <article
                 key={post.id}
                 className="bg-white border border-bg rounded-3xl overflow-hidden shadow hover:shadow-lg transition flex flex-col"
